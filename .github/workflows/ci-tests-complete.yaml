@@ -16,8 +16,7 @@ jobs:
               id: test_workflow_run
               run: |
                  python matcher.py "${HOME}/files.json" \
-                    "test/**" \
-                    > /tmp/result.txt
+                    "test/**" > /tmp/result.txt
 
                  echo "::set-output name={will_run}::{$(cat /tmp/result.txt)}"
             - name: Wait for Backend Tests
