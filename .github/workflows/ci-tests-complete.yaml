@@ -7,8 +7,8 @@ jobs:
         name: Testing Complete
         runs-on: ubuntu-latest
         steps:
-            - name: Find file changes
-              uses: trilom/file-changes-action@v1.2.3
+            - uses: actions/checkout@v2
+            - uses: trilom/file-changes-action@v1.2.3
 
             # Check to see whether Test Workflow will be run. If it will be, then wait
             # for it to be finished.
