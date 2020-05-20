@@ -12,7 +12,8 @@ jobs:
             - name: Check if Test Workflow will be run
               run: |
                  echo "test/**" > /tmp/patterns.txt
-                 grep -f that-file -- $HOME/files.json
+                 cat $HOME/files.json
+                 grep -f /tmp/patterns.txt -- $HOME/files.json
             # - name: Wait for Backend Tests
             #   uses: fountainhead/action-wait-for-check@v1.0.0
             #   id: wait-for-backend
