@@ -2,8 +2,8 @@ name: CI (Dummy)
 
 on:
     pull_request:
-        paths-ignore:
-            - "test/**"
+        paths:
+            - "!test/**"
 
 jobs:
     test:
