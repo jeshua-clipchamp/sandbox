@@ -7,10 +7,10 @@ def main(patterns, file_list):
     for pattern in patterns:
         for fname in file_list:
             if pattern.match(fname):
-                print(1)
+                print('::set-output name={will_run}::{true}')
                 return
     
-    print(0)
+    print('::set-output name={will_run}::{false}')
 
 if __name__ == '__main__':
     main(

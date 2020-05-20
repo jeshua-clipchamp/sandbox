@@ -14,14 +14,8 @@ jobs:
               id: test_workflow_run
               run: |
                  python matcher.py "${HOME}/files.json" \
-                    "test/**" > /tmp/result.txt
-
-                 if [ $(cat /tmp/result.txt) -eq 1 ]; then
-                   echo "::set-output name={will_run}::{true}"
-                 else
-                   echo "::set-output name={will_run}::{false}"
-                 fi
-            - name: Wait for Backend Tests
+                    "test/**"
+            - name: Wait for Test Workflow
               uses: fountainhead/action-wait-for-check@v1.0.0
               id: wait_for_test_workflow_run
               if: steps.test_workflow_run.outputs.will_run == 'true'
@@ -29,5 +23,9 @@ jobs:
                 token: ${{ secrets.GITHUB_TOKEN }}
                 checkName: Test Workflow
                 ref: github.event.pull_request.head.sha
+            - name: Check status of Test Workflow
+              if: steps.test_workflow_run.outputs.will_run == 'true' && wait_for_test_workflow_run.outputs.conclusion != 'success'
+              run: exit 1
+                
 
               
