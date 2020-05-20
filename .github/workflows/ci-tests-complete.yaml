@@ -27,7 +27,5 @@ jobs:
                 token: ${{ secret.GITHUB_TOKEN }}
                 checkName: Test Workflow
                 ref: github.event.pull_request.head.sha
-            - name: Backend Test Failure
-              if: steps.test_workflow_run.outputs.will_run && steps.wait_for_test_workflow_run.outputs.conclusion != 'success'
-              run: exit 1
+
               
