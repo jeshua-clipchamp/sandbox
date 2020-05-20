@@ -1,0 +1,24 @@
+name: CI
+
+on: pull_request
+
+jobs:
+    test:
+        name: Tests Complete
+        runs-on: ubuntu-latest
+        steps:
+            - id: file_changes
+              uses: trilom/file-changes-action@v1.2.3
+            - name: Check if Test Workflow will be run
+              run: |
+                 echo "test/**" > /tmp/patterns.txt
+                 grep -f that-file -- $HOME/files.json
+            # - name: Wait for Backend Tests
+            #   uses: fountainhead/action-wait-for-check@v1.0.0
+            #   id: wait-for-backend
+            #   if: ${{  }}
+            #   with:
+            #     token: ${{ secret.GITHUB_TOKEN }}
+            #     checkName: Test Workflow
+            #     ref: github.event.pull_request.head.sha
+              
