@@ -1,0 +1,15 @@
+name: CI (Dummy)
+
+on:
+    push:
+        paths-ignore:
+            - "test/**"
+
+jobs:
+    test:
+        name: Test Workflow
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Run Tests
+              run: echo "Done!"
