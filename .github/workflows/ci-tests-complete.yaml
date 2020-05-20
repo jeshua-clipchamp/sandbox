@@ -4,22 +4,31 @@ on: pull_request
 
 jobs:
     test:
-        name: Tests Complete
+        name: Testing Complete
         runs-on: ubuntu-latest
         steps:
-            - id: file_changes
+            - name: Find file changes
               uses: trilom/file-changes-action@v1.2.3
+
+            # Check to see whether Test Workflow will be run. If it will be, then wait
+            # for it to be finished.
             - name: Check if Test Workflow will be run
+              id: test_workflow_run
               run: |
-                 echo "test/**" > /tmp/patterns.txt
-                 cat $HOME/files.json
-                 grep -f /tmp/patterns.txt -- $HOME/files.json
-            # - name: Wait for Backend Tests
-            #   uses: fountainhead/action-wait-for-check@v1.0.0
-            #   id: wait-for-backend
-            #   if: ${{  }}
-            #   with:
-            #     token: ${{ secret.GITHUB_TOKEN }}
-            #     checkName: Test Workflow
-            #     ref: github.event.pull_request.head.sha
+                 python matcher.py "${HOME}/files.json" \
+                    "test/**" \
+                    > /tmp/result.txt
+
+                 echo "::set-output name={will_run}::{$(cat /tmp/result.txt)}"
+            - name: Wait for Backend Tests
+              uses: fountainhead/action-wait-for-check@v1.0.0
+              id: wait_for_test_workflow_run
+              if: steps.test_workflow_run.outputs.will_run
+              with:
+                token: ${{ secret.GITHUB_TOKEN }}
+                checkName: Test Workflow
+                ref: github.event.pull_request.head.sha
+            - name: Backend Test Failure
+              if: steps.test_workflow_run.outputs.will_run && steps.wait_for_test_workflow_run.outputs.conclusion != 'success'
+              run: exit 1
               
