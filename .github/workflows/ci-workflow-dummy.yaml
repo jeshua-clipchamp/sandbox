@@ -1,6 +1,11 @@
 name: CI (Dummy)
 
-on: pull_request
+on:
+    pull_request:
+        paths:
+            - "**"
+            - "!test/**"
+
 jobs:
     test:
         name: Test Workflow
