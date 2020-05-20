@@ -23,7 +23,7 @@ jobs:
             - name: Wait for Backend Tests
               uses: fountainhead/action-wait-for-check@v1.0.0
               id: wait_for_test_workflow_run
-              if: steps.test_workflow_run.outputs.will_run == "true"
+              if: steps.test_workflow_run.outputs.will_run == 'true'
               with:
                 token: ${{ secrets.GITHUB_TOKEN }}
                 checkName: Test Workflow
