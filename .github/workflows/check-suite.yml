@@ -1,17 +1,12 @@
-name: CI
+name: Test
 
 on:
-    pull_request:
-        paths:
-            - "test/**"
-
-    push:
-        paths:
-            - "test/**"
+    check_suite:
+        types: [completed]
 
 jobs:
     test:
-        name: Test Workflow
+        name: Check Suite Test
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
