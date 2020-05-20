@@ -24,7 +24,7 @@ jobs:
                 checkName: Test Workflow
                 ref: github.event.pull_request.head.sha
             - name: Check status of Test Workflow
-              if: steps.test_workflow_run.outputs.will_run == 'true' && wait_for_test_workflow_run.outputs.conclusion != 'success'
+              if: steps.test_workflow_run.outputs.will_run == 'true' && steps.wait_for_test_workflow_run.outputs.conclusion != 'success'
               run: exit 1
                 
 
