@@ -1,0 +1,14 @@
+name: Test
+
+on:
+    check_suite:
+        types: [completed]
+
+jobs:
+    test:
+        name: Check Suite Test
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Run Tests
+              run: echo "Done!"
