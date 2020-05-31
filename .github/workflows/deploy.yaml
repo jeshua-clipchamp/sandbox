@@ -10,9 +10,6 @@ jobs:
   optional:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      # Work out the environment we are running in.
       - name: Set environment (dev)
         if: ${{ github.event_name == 'pull_request' && contains(github.base_ref, 'master') }}
         run: |
