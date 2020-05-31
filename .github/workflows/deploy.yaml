@@ -22,7 +22,7 @@ jobs:
         run: echo '::set-env name=ENV::test'
 
       - name: Set environment (beta)
-        if: ${{ github.event_name == 'pull_request' && contains(github.base_ref, 'production') }}
+        if: ${{ github.event_name == 'push' && contains(github.ref, 'release/') }}
         run: echo '::set-env name=ENV::beta'
 
       - name: Set environment (prod)
