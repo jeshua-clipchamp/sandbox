@@ -59,9 +59,11 @@ def get_check_suites(token: Text, repo: Text, ref: Text):
 def main(args: argparse.Namespace):
     workflow_runs = get_json(
         token=args.github_token,
-        url=f'repos/{args.github_repo}/actions/workflows/ci-deploy.yaml/runs')['workflow_runs']
+        url=f'repos/{args.github_repo}/actions/workflows/ci-deploy.yaml/runs')
 
-    workflow_runs = [wr for wr in workflow_runs if wr['head_sha'].startswith(args.sha)]
+    print(workflow_runs)
+
+    workflow_runs = [wr for wr in workflow_runs['workflow_runs'] if wr['head_sha'].startswith(args.sha)]
     if not workflow_runs:
         print('ERROR: Could not find deploy run for the given sha.')
         return 1
