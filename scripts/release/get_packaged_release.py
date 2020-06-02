@@ -59,7 +59,7 @@ def get_check_suites(token: Text, repo: Text, ref: Text):
 def main(args: argparse.Namespace):
     workflow_runs = get_json(
         token=args.github_token,
-        url=f'repos/{args.github_repo}/actions/workflows/ci-deploy.yaml/runs')
+        url=f'repos/{args.github_repo}/actions/workflows/deploy.yaml/runs')
 
     print(workflow_runs)
 
