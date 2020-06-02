@@ -19,7 +19,7 @@ jobs:
           mkdir -p /tmp/release-artifacts
           python ${{ github.workspace }}/scripts/release/get_packaged_release.py \
               --github_token="${{ secrets.GITHUB_TOKEN }}" \
-              --ref="${{ github.sha }}" \
+              --sha="${{ github.sha }}" \
               --output_dir="/tmp/release-artifacts"
 
       - name: Create Release
