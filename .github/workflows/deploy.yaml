@@ -28,3 +28,32 @@ jobs:
       - name: Set environment (prod)
         if: ${{ github.event_name == 'push' && contains(github.ref, 'production') }}
         run: echo '::set-env name=ENV::prod'
+
+      # For the master branch, upload a packaged version of the app.
+      - name: Package Backend
+        id: package_backend
+        if: ${{ env.ENV == 'test' }}
+        run: |
+          mkdir -p /tmp/backend-dist
+          touch /tmp/backend-dist/test.txt
+          echo "::set-output name=package_path::/tmp/backend-dist"
+      - name: Save Backend Package
+        if: ${{ env.ENV == 'test' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: backend-dist
+          path: ${{ steps.package_backend.outputs.package_path }}
+
+      - name: Package Frontend
+        id: package_frontend
+        if: ${{ env.ENV == 'test' }}
+        run: |
+          mkdir -p /tmp/frontend-dist
+          touch /tmp/frontend-dist/test.txt
+          echo "::set-output name=package_path::/tmp/frontend-dist"
+      - name: Save Frontend Package
+        if: ${{ env.ENV == 'test' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: frontend-dist
+          path: ${{ steps.package_frontend.outputs.package_path }}
