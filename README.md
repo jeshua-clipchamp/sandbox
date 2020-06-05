@@ -11,4 +11,10 @@ change9
 change10
 change11
 change12
+<<<<<<< HEAD
 foo
+=======
+foo
+cherrypick
+cherrypick2
+>>>>>>> f1b1e31... .
