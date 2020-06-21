@@ -14,47 +14,5 @@ jobs:
       - name: Install dependencies
         run: python -m pip install -r ${{ github.workspace }}/scripts/release/requirements.txt
 
-      - name: Download release artifacts
-        run: |
-          mkdir -p /tmp/release-artifacts
-          python ${{ github.workspace }}/scripts/release/get_packaged_release.py \
-              --github_token="${{ secrets.GITHUB_TOKEN }}" \
-              --sha="${{ github.sha }}" \
-              --output_dir="/tmp/release-artifacts"
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
-          draft: true
-          prerelease: false
-
-      - name: Upload frontend release artifact
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: /tmp/release-artifacts/frontend-dist.zip
-          asset_name: frontend-dist.zip
-          asset_content_type: application/
-
-      - name: Upload backend release artifact
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: /tmp/release-artifacts/backend-dist.zip
-          asset_name: backend-dist.zip
-          asset_content_type: application/zip
-
-      - name: Mark release as pre-release
-        run: |
-          python ${{ github.workspace }}/scripts/release/mark_as_prerelease.py \
-              --token="${{ secrets.GITHUB_TOKEN }}" \
-              --release_id="${{ steps.create_release.outputs.id }}"
+      - name: Test
+        run: echo "${{ github.event.ref }}" "${{ github.ref }}"
