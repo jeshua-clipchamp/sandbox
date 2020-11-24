@@ -1,6 +1,8 @@
 name: On Workflow Run
 on:
   workflow_run:
+    workflows:
+      - "*"
     types:
       - completed
 
