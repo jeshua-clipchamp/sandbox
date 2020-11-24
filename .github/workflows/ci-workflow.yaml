@@ -1,19 +1,14 @@
 name: CI
 
 on:
-    pull_request:
-        paths:
-            - "test/**"
-
-    push:
-        paths:
-            - "test/**"
+  pull_request:
+  push:
 
 jobs:
-    test:
-        name: Test Workflow
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v2
-            - name: Run Tests
-              run: echo "Done!"
+  test:
+    name: Test Workflow
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run Tests
+        run: echo "Done!"
