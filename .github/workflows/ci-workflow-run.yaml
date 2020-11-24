@@ -1,0 +1,13 @@
+name: On Workflow Run
+on:
+  workflow_run:
+    types:
+      - completed
+
+jobs:
+  dothing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Done
+        run: echo "Done!"
